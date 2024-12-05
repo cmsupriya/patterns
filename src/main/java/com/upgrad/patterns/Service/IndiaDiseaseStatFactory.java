@@ -21,14 +21,34 @@ public class IndiaDiseaseStatFactory {
 
     
     //create a method named GetInstance with return type as IndianDiseaseStat and parameter of type sourceType
+
+    public IndianDiseaseStat GetInstance(String sourceType) {
     	//create a conditional statement
     	//if the sourceType is JohnHopkins
+
+        if (sourceType == "JohnHopkins") {
+            this.johnHopkinsStrategy = new JohnHopkinsStrategy();
+
     		//return johnHopkinsStrategy
+            
+            return this.johnHopkinsStrategy;
+        }
+
     	//if the sourceType is DiseaseSh
-    		//return diseaseShStrategy
-    
+
+        else if (sourceType == "DiseaseSh") {
+            this.diseaseShStrategy = new DiseaseShStrategy();
+            
+            //return diseaseShStrategy
+            
+            return this.diseaseShStrategy;
+        }
+
     	//create a message for invalid disease strategy/sourceType
     	//throw the message as an Illegal argument exception
-    
-    
+
+        else {
+            throw new IllegalArgumentException("Invalid Disease Strategy/SourceType");
+        }
+    }
 }

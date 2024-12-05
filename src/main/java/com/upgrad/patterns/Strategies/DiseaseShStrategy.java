@@ -28,7 +28,7 @@ public class DiseaseShStrategy implements IndianDiseaseStat {
     @Value("${config.diseaseSh-io-url}")
     private String baseUrl;
 
-    public DiseaseShStrategy()
+    public DiseaseShStrategy() 
     {
         restTemplate = RestServiceGenerator.GetInstance();
     }
@@ -38,26 +38,31 @@ public class DiseaseShStrategy implements IndianDiseaseStat {
     	//write a try catch block here
     	
     	//try block
-    	
+    	try {
 	    	//obtain response from the getDiseaseShResponseResponses() method
 	    	//store it in an object
+
+            DiseaseShResponse diseaseShResponse = getDiseaseShResponseResponses();
 	    	
     		//get the response using the getCases() method
 	    	//return the response after rounding it up to 0 decimal places
-    	
-    	
+            
+            Float cases = diseaseShResponse.getCases();
+            return String.format("%d", Math.round(cases));
+        }
     	//catch block
+        catch(Exception e) {
     		//log the error
-    	
+            logger.error(e.getMessage());
+
     		//return null
-    	
-    	
+            return null;
+        }
     }
 
     private DiseaseShResponse getDiseaseShResponseResponses() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ClassPathResource resource = new ClassPathResource("DiseaseSh.json");
         return objectMapper.readValue(resource.getFile(), DiseaseShResponse.class);
-
     }
 }

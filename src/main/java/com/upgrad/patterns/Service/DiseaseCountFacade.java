@@ -1,6 +1,8 @@
 package com.upgrad.patterns.Service;
 
 import com.upgrad.patterns.Constants.SourceType;
+import com.upgrad.patterns.Interfaces.IndianDiseaseStat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class DiseaseCountFacade {
 
    //create a private object indiaDiseaseStat of type IndiaDiseaseStatFactory
+   private IndiaDiseaseStatFactory indiaDiseaseStat;
 
     @Autowired
     public DiseaseCountFacade(IndiaDiseaseStatFactory indiaDiseaseStat)
@@ -17,16 +20,34 @@ public class DiseaseCountFacade {
 
     
     //create a public method getDiseaseShCount() that has Object as its return type
+
+    public String getDiseaseShCount() {
     	//call the GetInstance method with DiseaseSh as the parameter using the indiaDiseaseStat object created on line 10
-    	//Based on the strategy returned, call the specific implementation of the GetActiveCount method
-    	//return the response
-   
+
+        IndianDiseaseStat indiaDiseaseStat = this.indiaDiseaseStat.GetInstance("DiseaseSh");
+       
+        //Based on the strategy returned, call the specific implementation of the GetActiveCount method
+
+        String cases = indiaDiseaseStat.GetActiveCount();
+
+        //return the response
+        return cases;
+       
+    }
     
     //create a public method getJohnHopkinCount() that has Object as its return type
+    public String getJohnHopkinCount() {
 		//call the GetInstance method with JohnHopkins as the parameter using the indiaDiseaseStat object created on line 10
-		//Based on the strategy returned, call the specific implementation of the GetActiveCount method
+        
+        IndianDiseaseStat indiaDiseaseStat = this.indiaDiseaseStat.GetInstance("JohnHopkins");
+
+        //Based on the strategy returned, call the specific implementation of the GetActiveCount method
+        
+        String cases = indiaDiseaseStat.GetActiveCount();
+
     	//return the response
-    
+        return cases;
+    }
 
 
     public Object getInfectedRatio(String sourceType) throws IllegalArgumentException {
