@@ -36,24 +36,22 @@ public class DiseaseShStrategy implements IndianDiseaseStat {
     @Override
     public String GetActiveCount() {
     	//write a try catch block here
-    	
     	//try block
     	try {
-	    	//obtain response from the getDiseaseShResponseResponses() method
-	    	//store it in an object
-
+	    	//obtain response from the getDiseaseShResponseResponses() method store it in an object
             DiseaseShResponse diseaseShResponse = getDiseaseShResponseResponses();
 	    	
     		//get the response using the getCases() method
+            Float totalCases = diseaseShResponse.getCases();
+
 	    	//return the response after rounding it up to 0 decimal places
-            
-            Float cases = diseaseShResponse.getCases();
-            return String.format("%d", Math.round(cases));
+            return String.format("%.0f", totalCases);
         }
+
     	//catch block
-        catch(Exception e) {
+        catch(IOException e) {
     		//log the error
-            logger.error(e.getMessage());
+            logger.error("Error fetching DiseaseSh data", e);
 
     		//return null
             return null;

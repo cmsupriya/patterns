@@ -36,25 +36,38 @@ public class JohnHopkinsStrategy implements IndianDiseaseStat {
 
 	@Override
 	public String GetActiveCount() {
+		// try block
+		try {
+			// get response from the getJohnHopkinResponses method
+			JohnHopkinResponse[] responses = getJohnHopkinResponses();
 
+			// filter the data based such that country equals India (use getCountry() to get the country value)
+			double confirmedCases = Arrays.stream(responses)
+					.filter(response -> "India".equals(response.getCountry()))
 
-		//try block
-			//get response from the getJohnHopkinResponses method
-			//filter the data based such that country equals India (use getCountry() to get the country value)
-			//Map the data to "confirmed" value (use getStats() and getConfirmed() to get stats value and confirmed value)
-			//Reduce the data to get a sum of all the "confirmed" values
-			//return the response after rounding it up to 0 decimal places
-		//catch block
-			//log the error
-			//return null
+					// Map the data to "confirmed" value (use getStats() and getConfirmed() to get stats value and confirmed value)
+					.mapToDouble(response -> response.getStats().getConfirmed())
 
+					// Reduce the data to get a sum of all the "confirmed" values
+					.sum();
 
+			// return the response after rounding it up to 0 decimal places
+			return String.format("%.0f", confirmedCases);
+		}
 
+		// catch block
+		catch (IOException e) {
+			// log the error
+			logger.error("Error fetching John Hopkins data: ", e);
+
+			// return null
+			return null;
+		}
 	}
 
 	private JohnHopkinResponse[] getJohnHopkinResponses() throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ClassPathResource resource = new ClassPathResource("JohnHopkins.json");
-		return new JohnHopkinResponse[]{objectMapper.readValue(resource.getFile(), JohnHopkinResponse.class)};
+		return new JohnHopkinResponse[] { objectMapper.readValue(resource.getFile(), JohnHopkinResponse.class) };
 	}
 }

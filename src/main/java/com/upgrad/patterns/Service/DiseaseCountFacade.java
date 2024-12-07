@@ -18,37 +18,29 @@ public class DiseaseCountFacade {
         this.indiaDiseaseStat = indiaDiseaseStat;
     }
 
-    
     //create a public method getDiseaseShCount() that has Object as its return type
-
-    public String getDiseaseShCount() {
+    public Object getDiseaseShCount() {
     	//call the GetInstance method with DiseaseSh as the parameter using the indiaDiseaseStat object created on line 10
-
-        IndianDiseaseStat indiaDiseaseStat = this.indiaDiseaseStat.GetInstance("DiseaseSh");
+        IndianDiseaseStat indiaDiseaseStatInstance = this.indiaDiseaseStat.GetInstance(SourceType.DiseaseSh);
        
         //Based on the strategy returned, call the specific implementation of the GetActiveCount method
-
-        String cases = indiaDiseaseStat.GetActiveCount();
+        Object cases = indiaDiseaseStatInstance.GetActiveCount();
 
         //return the response
         return cases;
-       
     }
     
     //create a public method getJohnHopkinCount() that has Object as its return type
-    public String getJohnHopkinCount() {
-		//call the GetInstance method with JohnHopkins as the parameter using the indiaDiseaseStat object created on line 10
-        
-        IndianDiseaseStat indiaDiseaseStat = this.indiaDiseaseStat.GetInstance("JohnHopkins");
+    public Object getJohnHopkinCount() {
+		//call the GetInstance method with JohnHopkins as the parameter using the indiaDiseaseStat object created on line 10        
+        IndianDiseaseStat indiaDiseaseStatInstance = this.indiaDiseaseStat.GetInstance(SourceType.JohnHopkins);
 
         //Based on the strategy returned, call the specific implementation of the GetActiveCount method
-        
-        String cases = indiaDiseaseStat.GetActiveCount();
+        Object cases = indiaDiseaseStatInstance.GetActiveCount();
 
     	//return the response
         return cases;
     }
-
 
     public Object getInfectedRatio(String sourceType) throws IllegalArgumentException {
         try {
