@@ -1,4 +1,4 @@
-## Disease Statistics using design patterns
+# Disease Statistics using design patterns
 
 This application view the data from John Hopkins and Disease.io API responses but it will also filter the JSON response in such a way that it displays only the count of the people infected with a specific disease or the infected ratio when a request is made.
 
