@@ -1,8 +1,14 @@
+## Disease Statistics using design patterns
 
+This application view the data from John Hopkins and Disease.io API responses but it will also filter the JSON response in such a way that it displays only the count of the people infected with a specific disease or the infected ratio when a request is made.
 
+# This application using Spring Boot that uses five design patterns, which are as follows:
+1.Singleton
+2.Adapter
+3.Factory
+4.Facade
+5.Chain of Responsibility
 
-# Pattern Starter – Solution
-                                                                                        
 # Test Cases:
 
 ## Case – 1 : Enter the following URL to obtain the disease count using the DiseaseSh strategy.
